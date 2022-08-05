@@ -34,7 +34,7 @@ server.on('connection', (socket: Socket) => {
 	
 	socket.on('get-job', (message: { queue: string }) => {
 		if (queues[message.queue] && queues[message.queue].jobs.length > 0) {
-			const job = queues[message.queue].jobs.pop();
+			const job = queues[message.queue].jobs.shift();
 			const count = queues[message.queue].jobs.length;
 			socket.emit('job', job);
 			console.log(`Sent job to socket ${socket.id}, job #${job.id}: jobs count ${count}`);
